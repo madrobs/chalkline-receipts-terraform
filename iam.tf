@@ -37,11 +37,12 @@ resource "aws_iam_role" "member_api" {
 }
 
 data "aws_iam_policy_document" "storage" {
+  # Least privilege: reprints only. The thermal printer at the desk
+  # already has the PDF; the storage service should not mint new objects in prod.
   statement {
     sid = "ReceiptsBucketAccess"
     actions = [
       "s3:GetObject",
-      "s3:PutObject",
     ]
     resources = [
       "${aws_s3_bucket.receipts.arn}/*",
