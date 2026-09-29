@@ -42,6 +42,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "receipts" {
     id     = "expire-old-receipts"
     status = "Enabled"
 
+    filter {}
+
     expiration {
       days = var.environment == "prod" ? 2555 : 30
     }
